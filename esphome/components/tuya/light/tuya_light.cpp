@@ -206,9 +206,10 @@ void TuyaLight::write_state(light::LightState *state) {
         float saturation, value;
         rgb_to_hsv(red, green, blue, hue, saturation, value);
         char buffer[15];
-        sprintf(buffer, "%02X%02X%02X%04X%02X%02X", int(red * 255), int(green * 255), int(blue * 255), hue,
-                int(saturation * 255), 64);
-        color_value = buffer;
+        sprintf(buffer, "%02X%02X%02X%04X%02X64", int(red * 255), int(green * 255), int(blue * 255), hue,
+                int(saturation * 255));
+        color_value = str_lower_case(buffer);
+        ESP_LOGD(TAG, color_value);
         break;
       }
     }
