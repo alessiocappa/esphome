@@ -206,14 +206,13 @@ void TuyaLight::write_state(light::LightState *state) {
         float saturation, value;
         rgb_to_hsv(red, green, blue, hue, saturation, value);
         char buffer[15];
-        sprintf(buffer, "%02X%02X%02X%04X%02X64", int(red * 255), int(green * 255), int(blue * 255), hue,
-                int(saturation * 255));
-        color_value = str_lower_case(buffer);
-        ESP_LOGD(TAG, color_value);
+        sprintf(buffer, "%02X%02X%02X%04X%02X%02X", int(red * 255), int(green * 255), int(blue * 255), hue,
+                int(saturation * 255), int(value * 255));
+        color_value = buffer;
         break;
       }
     }
-    this->parent_->set_string_datapoint_value(*this->color_id_, color_value);
+    this->parent_->set_string_datapoint_value(*this->color_id_, str_lower_case(color_value));
   }
 
   if (this->switch_id_.has_value()) {
