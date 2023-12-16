@@ -188,8 +188,7 @@ void TuyaLight::write_state(light::LightState *state) {
     switch (*this->color_type_) {
       case TuyaColorType::RGB: {
         char buffer[15];
-        sprintf(buffer, "%02X%02X%02XFFFF6464", int(red * 255), int(green * 255), int(blue * 255));
-        ESP_LOGD(TAG, "RGB value %02X%02X%02XFFFF6464", int(red * 255), int(green * 255), int(blue * 255));
+        sprintf(buffer, "%02X%02X%02X", int(red * 255), int(green * 255), int(blue * 255));
         color_value = buffer;
         break;
       }
@@ -208,7 +207,7 @@ void TuyaLight::write_state(light::LightState *state) {
         rgb_to_hsv(red, green, blue, hue, saturation, value);
         char buffer[15];
         sprintf(buffer, "%02X%02X%02X%04X%02X%02X", int(red * 255), int(green * 255), int(blue * 255), hue,
-                int(saturation * 255), int(value * 255));
+                int(saturation * 255), 64);
         color_value = buffer;
         break;
       }
