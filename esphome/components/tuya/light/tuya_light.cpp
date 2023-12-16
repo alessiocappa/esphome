@@ -217,7 +217,7 @@ void TuyaLight::write_state(light::LightState *state) {
         break;
       }
     }
-    this->parent_->set_string_datapoint_value(*this->color_id_, color_value);
+    this->parent_->set_string_datapoint_value(*this->color_id_, str_lower_case(color_value));
   }
 
   if (this->switch_id_.has_value()) {
